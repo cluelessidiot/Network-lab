@@ -9,16 +9,18 @@ import java.util.*;
 import java.net.*; 
 
   
+public class God {
+
+public static long i = 0;
+public static long 	flag = 0;
+}
   
   
 // Server class 
-public class Server  
+public  Server  
 {  
- public static int i= 0;
-  public static int flag = 100;
-     public static void main(String[] args) throws IOException  
-    {
-     
+    public static void main(String[] args) throws IOException  
+    { 
         // server is listening on port 5056 
         ServerSocket ss = new ServerSocket(5056); 
           
@@ -29,7 +31,7 @@ public class Server
             Socket s = null; 
               
             try 
-            {  Server.i++;
+            { 
                 // socket object to receive incoming client requests 
                 s = ss.accept(); 
                   
@@ -42,7 +44,7 @@ public class Server
                 System.out.println("Assigning new thread for this client"); 
   
                 // create a new thread object 
-                Thread t = new ClientHandler(s, dis, dos); 
+                Thread t = new ClientHandler(s, dis, dos,God.i++,God.flag); 
 		Socket[] sockarray= new Socket[100];  
                 // Invoking the start() method 
                 t.start(); 
@@ -68,12 +70,13 @@ class ClientHandler extends Thread
    int i;
   
     // Constructor 
-    public ClientHandler(Socket s, DataInputStream dis, DataOutputStream dos)  
+    public ClientHandler(Socket s, DataInputStream dis, DataOutputStream dos,int i,int flag)  
     { 
         this.s = s; 
         this.dis = dis; 
         this.dos = dos; 
-        
+        this.i=i;
+        this.flag=flag;
     } 
   
     @Override
@@ -81,8 +84,6 @@ class ClientHandler extends Thread
     { 
         String received; 
         String toreturn; 
-        int k=Server.i;
-        int q=Server.flag;
         while (true)  
         { 
             try { 
@@ -98,10 +99,18 @@ class ClientHandler extends Thread
                 
                 // receive the answer from client 
                 
-                System.out.println("i "+k);
-                System.out.println("flag"+q);
+                System.out.println("i "+i);
+                System.out.println("flag"+flag);
                 received = dis.readUTF(); 
-		
+                if(flag<=i)
+                {   
+                    //System.out.println("Client " + this.s + " sends exit..."); 
+                    //System.out.println("Closing this connection."); 
+                    //this.s.close(); 
+                    //System.out.println("Connection closed"); 
+                    //break; 
+                
+                }
                   
                 if(received.equals("Exit")) 
                 {  
@@ -118,12 +127,9 @@ class ClientHandler extends Thread
                     System.out.println("Client " + this.s + " sends exit..."); 
                     System.out.println("Closing this connection."); 
                     this.s.close(); 
- 
-                    
                     System.out.println("Connection closed"); 
                     break; 
-                }
-             
+                }   
                 // creating Date object 
                 Date date = new Date(); 
                   

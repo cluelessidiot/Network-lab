@@ -7,29 +7,23 @@ import java.io.*;
 import java.text.*; 
 import java.util.*; 
 import java.net.*; 
-
-  
-  
   
 // Server class 
 public class Server  
-{  
- public static int i= 0;
-  public static int flag = 100;
-     public static void main(String[] args) throws IOException  
-    {
-     
+{ 
+    public static void main(String[] args) throws IOException  
+    { 
         // server is listening on port 5056 
         ServerSocket ss = new ServerSocket(5056); 
           
         // running infinite loop for getting 
         // client request 
- while (true)  
-        {  
+        while (true)  
+        { 
             Socket s = null; 
               
             try 
-            {  Server.i++;
+            { 
                 // socket object to receive incoming client requests 
                 s = ss.accept(); 
                   
@@ -43,7 +37,7 @@ public class Server
   
                 // create a new thread object 
                 Thread t = new ClientHandler(s, dis, dos); 
-		Socket[] sockarray= new Socket[100];  
+  
                 // Invoking the start() method 
                 t.start(); 
                   
@@ -64,8 +58,7 @@ class ClientHandler extends Thread
     final DataInputStream dis; 
     final DataOutputStream dos; 
     final Socket s; 
-    int flag;
-   int i;
+      
   
     // Constructor 
     public ClientHandler(Socket s, DataInputStream dis, DataOutputStream dos)  
@@ -73,7 +66,6 @@ class ClientHandler extends Thread
         this.s = s; 
         this.dis = dis; 
         this.dos = dos; 
-        
     } 
   
     @Override
@@ -81,27 +73,16 @@ class ClientHandler extends Thread
     { 
         String received; 
         String toreturn; 
-        int k=Server.i;
-        int q=Server.flag;
         while (true)  
         { 
             try { 
-                
-               
-            
-            
-                 
+  
                 // Ask user what he wants 
                 dos.writeUTF("What do you want?[Date | Time]..\n"+ 
                             "Type Exit to terminate connection."); 
                   
-                
                 // receive the answer from client 
-                
-                System.out.println("i "+k);
-                System.out.println("flag"+q);
                 received = dis.readUTF(); 
-		
                   
                 if(received.equals("Exit")) 
                 {  
@@ -111,19 +92,7 @@ class ClientHandler extends Thread
                     System.out.println("Connection closed"); 
                     break; 
                 } 
-               if(received.equals("Close")) 
-                {  flag=i;
-                System.out.println("c i "+i);
-                System.out.println("c flag"+flag);
-                    System.out.println("Client " + this.s + " sends exit..."); 
-                    System.out.println("Closing this connection."); 
-                    this.s.close(); 
- 
-                    
-                    System.out.println("Connection closed"); 
-                    break; 
-                }
-             
+                  
                 // creating Date object 
                 Date date = new Date(); 
                   
@@ -162,13 +131,17 @@ class ClientHandler extends Thread
     } 
 } 
 
+-----------------------------------------------------------------------------------------------
 
 // Java implementation for a client 
 // Save file as Client.java 
   
-
+import java.io.*; 
+import java.net.*; 
+import java.util.Scanner; 
+  
 // Client class 
-class Client  
+public class Client  
 { 
     public static void main(String[] args) throws IOException  
     { 
@@ -196,14 +169,6 @@ class Client
                   
                 // If client sends exit,close this connection  
                 // and then break from the while loop 
-                 if(tosend.equals("Close")) 
-                { 
-                    
-                    System.out.println("Closing this connection : " + s); 
-                    s.close(); 
-                    System.out.println("Connection closed"); 
-                    break; 
-                } 
                 if(tosend.equals("Exit")) 
                 { 
                     System.out.println("Closing this connection : " + s); 
