@@ -126,25 +126,46 @@ class ClientHandler implements Runnable
 					Server.ar.remove(this);
 					break;
 				}
-
+				
+				if(received.equals("Active"))
+				{
+				
+				if ((mc.name.equals(w))&&(!mc.name.equals(this.name)))
+				{
+				
+				
+				}
+				
+				}
 				// break the string into message and recipient part
 				StringTokenizer st = new StringTokenizer(received, "#");
 				
 				String MsgToSend = st.nextToken();
-				System.out.printf("%s",MsgToSend);
+				//System.out.println(MsgToSend);
 				String recipient = st.nextToken();
-
+				String[] arr = recipient.split(",", 0);  
+				//sending to multiple client
+				//StringTokenizer st_rec = new StringTokenizer(recipient,",");
+				// while (st_rec.hasMoreTokens()) 
+           			//	 System.out.println(st_rec.nextToken()); 
+				//String recipient = st.nextToken();
+				//System.out.println(recipient);
 
 				// search for the recipient in the connected devices list.
 				// ar is the vector storing client of active users
+				
+				 for (String w : arr) 
 				for (ClientHandler mc : Server.ar)
-				{
+				{     
+				
+					//recipient = st_rec.nextToken();
+						///System.out.println(recipient);	
 					// if the recipient is found, write on its
 					// output stream
-					if ((mc.name.equals(recipient))&&(!mc.name.equals(this.name)))
+					if ((mc.name.equals(w))&&(!mc.name.equals(this.name)))
 					{
 						mc.dos.writeUTF(this.name+" : "+MsgToSend);
-						break;
+						
 					}
 				}
 			} 
