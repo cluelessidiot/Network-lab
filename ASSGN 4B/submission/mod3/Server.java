@@ -129,10 +129,10 @@ class ClientHandler implements Runnable
 				
 				if(received.equals("Active"))
 				{
-				
-				if ((mc.name.equals(w))&&(!mc.name.equals(this.name)))
+				for (ClientHandler mc : Server.ar)
+				if ((!mc.name.equals(this.name)))
 				{
-				
+				this.dos.writeUTF(mc.name+":"+"is active");
 				
 				}
 				
