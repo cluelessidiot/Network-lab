@@ -34,12 +34,22 @@ public class Server
 
 					// read the message to deliver.
 					String msg = scn.nextLine();
-					  System.out.println(msg);
 					
+					try {   
+					if(msg.equals("BCT"))
+					for (ClientHandler mc : Server.ar)
+							mc.dos.writeUTF(msg);
+						// write on the output stream
+						//dos.writeUTF(msg);
+					} catch (IOException e) {
+						System.exit(0);
+						e.printStackTrace();
+					}
 				}
 			}
 		});
 		sendMessage.start();
+
 		// running infinite loop for getting
 		// client request
 		while (true)
