@@ -24,7 +24,22 @@ public class Server
 		ServerSocket ss = new ServerSocket(1234);
 
 		Socket s;
+		
+		Thread sendMessage = new Thread(new Runnable()
+		{   Scanner scn = new Scanner(System.in);
 
+			@Override
+			public void run() {
+				while (true) {
+
+					// read the message to deliver.
+					String msg = scn.nextLine();
+					  System.out.println(msg);
+					
+				}
+			}
+		});
+		sendMessage.start();
 		// running infinite loop for getting
 		// client request
 		while (true)
