@@ -12,7 +12,7 @@ public class Server
 
 	// Vector to store active clients
 	static Vector<ClientHandler> ar = new Vector<>();
-
+	static Vector<Thread> thr= new Vector<>();
 	// counter for clients
 	static int i = 0;
 
@@ -50,7 +50,7 @@ public class Server
 
 			// add this client to active clients list
 			ar.add(mtch);
-
+			thr.add(t);
 			// start the thread.
 			t.start();
 
