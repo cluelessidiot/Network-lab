@@ -129,11 +129,19 @@ class ClientHandler implements Runnable
 				
 				if(received.equals("Active"))
 				{
-				for (ClientHandler mc : Server.ar)
-				if ((!mc.name.equals(this.name)))
-				{
-				this.dos.writeUTF(mc.name+":"+"is active");
+					for (ClientHandler mc : Server.ar)
+						if ((!mc.name.equals(this.name)))
+							{
+								this.dos.writeUTF(mc.name+":"+"is active");
+							}
+				}
 				
+				if(received.equals("Quit"))
+				{
+				for (Thread th : Server.thr)
+				{
+				//this.dos.writeUTF(mc.name+":"+"is active");
+				th.interrupt();
 				}
 				
 				}
